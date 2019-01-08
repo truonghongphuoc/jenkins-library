@@ -12,6 +12,7 @@ def call(String buildStatus = 'STARTED', String env, String version = '0.0.0.0',
     if (frontendApp != 'None'){
         switch(env) {
             case dev:
+                println('Go here')
                 if (frontendApp == 'publisher') {
                     frontEndUrl = 'https://development-store.' + url
                 } else {
