@@ -7,7 +7,6 @@ def call(String buildStatus = 'STARTED', String env, String version = '0.0.0.0',
     def color
     def defaultUrl = 'alax.io'
     def frontEndUrl= ''
-    def msg
 
     if (frontendApp != 'None'){
         switch(env) {
@@ -44,18 +43,13 @@ def call(String buildStatus = 'STARTED', String env, String version = '0.0.0.0',
 
     if (buildStatus == 'STARTED') {
         color = '#D4DADF'
-        msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${env.BUILD_URL}\n* Version:${version}\n* Commit Message:\n${gitMessage}"
     } else if (buildStatus == 'SUCCESS') {
         color = '#00FF00'
     } else {
         color = '#FF0000'
     }
     
-    if (frontendApp == 'None'){
-        msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${env.BUILD_URL}\n* Version:${version}\n* Commit Message:\n${gitMessage}"
-    } else {
-        msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${env.BUILD_URL}\n* Version:${version}\n* Deployed at: ${frontEndUrl}* Commit Message:\n${gitMessage}"
-    }
+    def msg = "${buildStatus}: ${env.JOB_NAME} #${env.BUILD_NUMBER}:\n${env.BUILD_URL}\n* Version:${version}\n* Commit Message:\n${gitMessage}"
     
     slackSend(color: color, message: msg)
 }
