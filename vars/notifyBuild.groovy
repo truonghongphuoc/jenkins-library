@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def notifyBuild(String buildStatus = 'STARTED') {
+def call(String buildStatus = 'STARTED') {
   // build status of null means successful
   buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
@@ -17,5 +17,4 @@ def notifyBuild(String buildStatus = 'STARTED') {
     def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${env.BUILD_URL}"
 
     slackSend(color: color, message: msg)
-
 }
